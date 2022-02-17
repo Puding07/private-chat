@@ -1,0 +1,13 @@
+.messages {
+  display: flex;
+  flex-direction: column;
+
+  .message-container {
+    margin: 0.5rem;
+    padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
