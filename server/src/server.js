@@ -6,22 +6,20 @@ const io = new Server(http, {
   cors: { origin: "*", methods: ["GET", "POST"] },
 });
 
-const messages = [];
-let clients = 0;
-let secretRoom = "";
+let messages = [];
+let clients = [];
 
 io.on("connection", (socket) => {
   console.log("id: ", socket.id);
 
   socket.on("roomName", (room) => {
     console.log(room);
-    if (clients < 2) {
+    if (clients.length < 2) {
       socket.join(room);
       if (messages.length) socket.emit("messages", messages);
       socket.emit("status", "Success");
-      secretRoom = room;
 
-      clients++;
+      clients.push(socket.id);
     } else {
       socket.emit("status", "Error");
       socket.disconnect(true);
@@ -45,18 +43,15 @@ io.on("connection", (socket) => {
     }
   });
 
-  /**
-   * Disconnection not detecting properly...
-   */
-
   socket.on("disconnect", () => {
-    if (socket.rooms.has(secretRoom)) {
-      if (clients === 1) {
-        clients--;
-        secretRoom === "";
+    console.log("Disconnected: ", socket.id);
+
+    if (clients.includes(socket.id)) {
+      clients = clients.filter((id) => {
+        return id !== socket.id;
+      });
+      if (clients.length === 0) {
         messages = [];
-      } else if (clients > 0) {
-        clients--;
       }
     }
   });
