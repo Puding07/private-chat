@@ -1,8 +1,9 @@
 //import liraries
 import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import io from "socket.io-client";
-import MessageInput from "../MessageInput/MessageInput";
-import Messages from "../Messages/Messages";
+
+import Paths from "../Routes/Routes";
 
 // create a component named App
 export const App = () => {
@@ -10,23 +11,10 @@ export const App = () => {
 
   useEffect(() => {
     const newSocket = io(`http://localhost:3000`);
+    console.log(newSocket);
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);
 
-  return (
-    <div>
-      <h1>Hello there</h1>
-      {socket?.connected ? (
-        <div className="chat-container">
-          <h2>Connected</h2>
-
-          <Messages socket={socket} />
-          <MessageInput socket={socket} />
-        </div>
-      ) : (
-        <div>Not Connected</div>
-      )}
-    </div>
-  );
+  return <Router>{socket && <Paths socket={socket} />}</Router>;
 };
