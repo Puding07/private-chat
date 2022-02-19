@@ -1,0 +1,15 @@
+.main-menu {
+  padding: 1rem 4rem 1rem 4rem;
+  border: 1px solid #873b6d;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+
+  &:hover {
+    box-shadow: 0px 0px 15px #00000056;
+  }
+}

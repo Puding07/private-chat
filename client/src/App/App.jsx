@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import io from "socket.io-client";
 
+import "./App.scss";
 import Paths from "../Routes/Routes";
 
 // create a component named App

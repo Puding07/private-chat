@@ -1,12 +1,15 @@
 //import liraries
 import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+
+import "./MainMenu.scss";
+import { EnterButton } from "../EnterButton/EnterButton";
 
 // create a component named MainMenu
 const MainMenu = ({ socket }) => {
   const navigate = useNavigate();
   const [room, setRoom] = useState(null);
+
   useEffect(() => {
     socket.on("status", statusListener);
     room && socket.emit("roomName", room);
@@ -17,7 +20,6 @@ const MainMenu = ({ socket }) => {
   }, [socket, room]);
 
   const statusListener = (status) => {
-    console.log(status);
     if (status === "Success") {
       navigate(`/room/${room}`);
     } else {
@@ -34,11 +36,13 @@ const MainMenu = ({ socket }) => {
   };
 
   return (
-    <div>
-      <h1>Create chat room.</h1>
-      <Button variant="contained" onClick={() => enterChat()}>
-        Enter
-      </Button>
+    <div className="main-menu">
+      <h2>
+        <EnterButton variant="contained" onClick={() => enterChat()}>
+          Enter
+        </EnterButton>
+        {" private chat"}
+      </h2>
     </div>
   );
 };

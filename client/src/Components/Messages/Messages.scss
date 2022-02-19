@@ -1,13 +1,58 @@
 .messages {
+  height: 87.5vh;
+  width: 100%;
+
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.637);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.397);
+  }
 
   .message-container {
+    width: 100%;
     margin: 0.5rem;
     padding: 1rem;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-areas: "message-partner message-you";
+    grid-template-columns: 50% 50%;
+    justify-items: right;
+
+    .message-partner {
+      grid-area: message-partner;
+    }
+
+    .message-you {
+      grid-area: message-you;
+    }
+
+    .message-you,
+    .message-partner {
+      display: flex;
+      flex-direction: column;
+
+      .message {
+        color: #fff;
+        font-size: larger;
+      }
+
+      .date {
+        color: #ffffff75;
+        text-align: right;
+      }
+    }
   }
 }

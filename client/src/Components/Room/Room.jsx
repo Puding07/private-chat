@@ -1,6 +1,8 @@
 //import liraries
 import React, { useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
+
+import "./Room.scss";
 import Messages from "../Messages/Messages";
 import MessageInput from "../MessageInput/MessageInput";
 
@@ -16,7 +18,7 @@ const Room = ({ socket }) => {
     }
   });
   return (
-    <div>
+    <div className="room">
       <Messages socket={socket} secret={params.id} />
       <MessageInput socket={socket} secret={params.id} />
     </div>
