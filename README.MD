@@ -1,5 +1,7 @@
 # Private Chat
 
+## **[Live test](https://chat.artonwork.com)**
+
 ## Features
 
 - **SHA256 Encryption Asynchronously**
@@ -12,6 +14,7 @@
 - Not Copying to clipboard automatically on: Mobile browsers, Opera Mini
 - 1 Chat room is available at a time
 - Only 2 participants
+- I use nginx to redirect every HTTP requests to TLS so the **socket.io URL needs to be changed in production**
 
 # Dependencies used
 
