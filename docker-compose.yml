@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  private-chat-server:
+    image: node:14
+    hostname: private-chat-socket
+    container_name: private-chat-socket
+    volumes:
+      - "./server:/usr/src/app:ro"
+    command: "node /usr/src/app/src/server.js"
+    ports:
+      - "3000:3000"
+    restart: always
+
+  private-chat-nginx:
+    image: fholzer/nginx-brotli
+    container_name: private-chat-client
+    ports:
+      - "80:80"
+    volumes:
+      - "./client/docker/brotli/nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "./client/docker/brotli/custom.conf:/etc/nginx/custom.conf:ro"
+      - "./client/dist:/etc/nginx/html:ro"
