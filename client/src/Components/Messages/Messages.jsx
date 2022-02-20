@@ -2,32 +2,23 @@
 import React, { useEffect, useState } from "react";
 
 import "./Messages.scss";
-import {
-  listMessages,
-  messageListener,
-  roomStatusListener,
-} from "../../Listeners/Listeners";
+import { listMessages, messageListener } from "../../Listeners/Listeners";
 
 // create a component named Messages
 const Messages = ({ socket, secret }) => {
   const [messages, setMessages] = useState([]);
 
-  const scrollToNew = () => {
-    const messagesDiv = document.querySelector(".messages");
-    messagesDiv.scrollTo(0, messagesDiv.scrollHeight);
-  };
-
   useEffect(() => {
     socket.on("message", (message) =>
       messageListener(message, secret, setMessages)
     );
-    socket.on("messages", (message) => listMessages(message, setMessages));
-    socket.on("status", (status) => roomStatusListener(status));
+    socket.on("messages", (message) =>
+      listMessages(message, secret, setMessages)
+    );
 
     return () => {
       socket.off("message", messageListener);
       socket.off("messages", messageListener);
-      socket.off("status", roomStatusListener);
     };
   }, [socket]);
 

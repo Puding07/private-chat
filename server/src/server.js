@@ -8,21 +8,44 @@ const io = new Server(http, {
 
 let messages = [];
 let clients = [];
+let secretRoom = "";
 
 io.on("connection", (socket) => {
   console.log("id: ", socket.id);
 
   socket.on("roomName", (room) => {
     console.log(room);
-    if (clients.length < 2) {
+    if (secretRoom !== "" && socket.id === clients[0]) {
+      messages = [];
+      clients = [];
+      secretRoom = "";
+
+      console.log("Deleted room.");
+    }
+
+    if (clients.length === 0) {
       socket.join(room);
       if (messages.length) socket.emit("messages", messages);
       socket.emit("status", "Success");
 
       clients.push(socket.id);
+      secretRoom = room;
+
+      console.log("Created and joined room");
+    } else if (clients.length === 1 && room === secretRoom) {
+      socket.join(room);
+      if (messages.length) socket.emit("messages", messages);
+      socket.emit("status", "Success");
+
+      clients.push(socket.id);
+      secretRoom = room;
+
+      console.log("Joined room");
     } else {
       socket.emit("status", "Error");
       socket.disconnect(true);
+
+      console.log("Disconnected client.");
     }
   });
 
@@ -40,6 +63,8 @@ io.on("connection", (socket) => {
       });
     } else {
       socket.disconnect(true);
+
+      console.log("Disconnected client.");
     }
   });
 
@@ -50,8 +75,14 @@ io.on("connection", (socket) => {
       clients = clients.filter((id) => {
         return id !== socket.id;
       });
+
+      console.log("Deleted client.");
+
       if (clients.length === 0) {
         messages = [];
+        secretRoom = "";
+
+        console.log("Deleted room.");
       }
     }
   });

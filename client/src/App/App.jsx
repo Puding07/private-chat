@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import io from "socket.io-client";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import "./App.scss";
 import Paths from "../Routes/Routes";
@@ -11,11 +12,24 @@ export const App = () => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io(`http://localhost:3000`);
-    console.log(newSocket);
-    setSocket(newSocket);
+    const newSocket = io(`${window.location.hostname}:3000`);
+
+    newSocket?.on("connect", () => setSocket(newSocket));
+
+    newSocket.connect();
+
     return () => newSocket.close();
   }, [setSocket]);
 
-  return <Router>{socket && <Paths socket={socket} />}</Router>;
+  return (
+    <Router>
+      {socket ? (
+        <Paths socket={socket} />
+      ) : (
+        <div className="waiting">
+          <CircularProgress />
+        </div>
+      )}
+    </Router>
+  );
 };

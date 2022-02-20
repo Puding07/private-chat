@@ -1,5 +1,5 @@
 .messages {
-  height: 87.5vh;
+  height: 81.5vh;
   width: 100%;
 
   display: flex;
@@ -22,21 +22,22 @@
   }
 
   .message-container {
-    width: 100%;
-    margin: 0.5rem;
-    padding: 1rem;
+    width: 98.5vw;
+    margin: 0.25vw;
+    padding: 0.5vw;
 
     display: grid;
     grid-template-areas: "message-partner message-you";
     grid-template-columns: 50% 50%;
-    justify-items: right;
 
     .message-partner {
       grid-area: message-partner;
+      text-align: left;
     }
 
     .message-you {
       grid-area: message-you;
+      text-align: right;
     }
 
     .message-you,
@@ -51,7 +52,6 @@
 
       .date {
         color: #ffffff75;
-        text-align: right;
       }
     }
   }

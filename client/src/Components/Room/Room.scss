@@ -6,4 +6,41 @@
   flex-direction: column;
   justify-content: start;
   align-items: center;
+
+  @media screen and (max-width: 700px) {
+    width: calc(100% - env(scrollbar-inline-size));
+  }
+
+  header {
+    position: relative;
+    height: 8%;
+    width: 100vw;
+    border-bottom: 1px solid #873b6d;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-family: "Lobster", cursive;
+    font-size: larger;
+
+    .share {
+      position: absolute;
+      height: 100%;
+      right: 1vw;
+
+      background-color: transparent;
+      border: none;
+      color: #ffffff75;
+
+      &:hover {
+        color: #ffffff;
+        cursor: pointer;
+      }
+
+      svg {
+        font-size: 30px;
+      }
+    }
+  }
 }

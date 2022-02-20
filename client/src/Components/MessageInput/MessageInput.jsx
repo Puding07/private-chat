@@ -14,10 +14,12 @@ const MessageInput = ({ socket, secret }) => {
   const submitForm = (e) => {
     e.preventDefault();
 
-    const encrypted = Encrypt(secret, socket.id, value);
+    if (value !== "") {
+      const encrypted = Encrypt(secret, socket.id, value);
 
-    socket.emit("secret", encrypted);
-    setValue("");
+      socket.emit("secret", encrypted);
+      setValue("");
+    }
 
     return false;
   };
@@ -34,7 +36,11 @@ const MessageInput = ({ socket, secret }) => {
           setValue(e.currentTarget.value);
         }}
       />
-      <SendButton variant="contained" onClick={() => enterChat()}>
+      <SendButton
+        variant="contained"
+        onTouchEnd={submitForm}
+        onClick={submitForm}
+      >
         <SendRoundedIcon />
       </SendButton>
     </form>
