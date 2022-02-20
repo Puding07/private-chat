@@ -6,6 +6,12 @@ import { TextField } from "@mui/material";
 const MessageField = styled(TextField)(({ theme }) => ({
   height: "100%",
   width: "80vw",
+  "& .MuiOutlinedInput-input": {
+    color: "#fff",
+  },
+  "& .MuiInputLabel-root": {
+    color: "#ffffff75",
+  },
   "& label.Mui-focused": {
     color: "#873B6D",
   },
