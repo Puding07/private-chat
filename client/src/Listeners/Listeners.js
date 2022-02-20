@@ -1,4 +1,4 @@
-import { Decrypt } from "../Crypto/Crypto";
+import { Encrypt, Decrypt } from "../Crypto/Crypto";
 
 export const messageListener = (message, secret, setMessages) => {
   const decrypted = Decrypt(secret, message);
@@ -14,6 +14,14 @@ export const listMessages = (messages, secret, setMessages) => {
   setMessages(encrypted);
 
   scrollToNew();
+};
+
+export const changeListener = (value, secret, id, setValue, setEncrypt) => {
+  if (value !== "") {
+    const encrypted = Encrypt(secret, id, value);
+    setValue(value);
+    setEncrypt(encrypted);
+  }
 };
 
 export const shareLink = (setAlert) => {

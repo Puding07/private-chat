@@ -5,21 +5,18 @@ import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import "./MessageInput.scss";
 import MessageField from "../MessageField/MessageField";
 import { SendButton } from "../EnterButton/EnterButton";
-import { Encrypt } from "../../Crypto/Crypto";
+import { changeListener } from "../../Listeners/Listeners";
 
 // create a component named MessageInput
 const MessageInput = ({ socket, secret }) => {
   const [value, setValue] = useState("");
+  const [encrypted, setEncrypt] = useState("");
 
   const submitForm = (e) => {
     e.preventDefault();
 
-    if (value !== "") {
-      const encrypted = Encrypt(secret, socket.id, value);
-
-      socket.emit("secret", encrypted);
-      setValue("");
-    }
+    socket.emit("secret", encrypted);
+    setValue("");
 
     return false;
   };
@@ -32,9 +29,15 @@ const MessageInput = ({ socket, secret }) => {
         autoComplete="off"
         value={value}
         autoFocus
-        onChange={(e) => {
-          setValue(e.currentTarget.value);
-        }}
+        onChange={(e) =>
+          changeListener(
+            e.currentTarget.value,
+            secret,
+            socket.id,
+            setValue,
+            setEncrypt
+          )
+        }
       />
       <SendButton
         variant="contained"
