@@ -8,6 +8,7 @@
 - **HMAC-SHA1 Integrity Check**
 - **Fast connection**
 - **Automatically deletes messages after all clients disconnected**
+- **Containerized with Docker**
 
 # Incapabilities
 
@@ -35,3 +36,4 @@
 - copy - Copies static files to dist folder
 - sass - Core dependency to load and bundle sass
 - sass-,css-,style-, loader - Loads different styles for webpack
+- cypress - E2E testing
