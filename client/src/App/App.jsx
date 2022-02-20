@@ -12,7 +12,7 @@ export const App = () => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io(`${window.location.hostname}:3000`);
+    const newSocket = io(`${window.location.hostname}:3000`); // :3000 only needed in development
 
     newSocket?.on("connect", () => setSocket(newSocket));
 
