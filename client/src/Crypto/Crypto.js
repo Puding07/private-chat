@@ -38,15 +38,12 @@ export const Decrypt = (secret, message) => {
 
   const integrityCheck = HmacSHA1(message.value.cipher, key);
 
-  console.log(message.value);
   if (message.integrity === integrityCheck.toString()) {
     var decrypted = AES.decrypt(message.value.cipher, key, {
       iv: enc.Hex.parse(message.value.iv),
       mode: CFB,
       padding: NoPadding,
     });
-
-    console.log(decrypted.toString(enc.Utf8));
 
     return JSON.parse(decrypted.toString(enc.Utf8));
   } else {
